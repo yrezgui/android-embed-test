@@ -1,6 +1,8 @@
 package com.yrezgui.embedtest.picker
 
 import android.os.Bundle
+import android.view.Gravity
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,38 +11,28 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.yrezgui.embedtest.picker.ui.theme.EmbedTestTheme
 
 class PickerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val params = window.attributes
+        params.height = intent.getIntExtra("height", 300)
+        params.gravity = Gravity.BOTTOM or Gravity.START or Gravity.END
+        params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+
+        window.attributes = params
+
         setContent {
             EmbedTestTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.primaryContainer
                 ) {
-                    Greeting("Android")
+                    Text("Embedded Picker")
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    EmbedTestTheme {
-        Greeting("Android")
     }
 }
