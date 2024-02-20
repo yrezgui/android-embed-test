@@ -16,6 +16,7 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -57,6 +58,9 @@ class HostActivity : ComponentActivity() {
                             }) {
                                 Text("Open picker")
                             }
+                        }
+                        item {
+                            TextField(value = "Host", onValueChange = {})
                         }
                         items(bigList) {
                             ListItem(headlineContent = { Text(it) })
