@@ -20,6 +20,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -29,6 +30,8 @@ class HostActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            var text by rememberSaveable { mutableStateOf("Host input") }
+
             var isPickerOpened by remember { mutableStateOf(false) }
             val launchIntent = rememberLauncherForActivityResult(StartActivityForResult()) {
                 isPickerOpened = false
@@ -60,7 +63,7 @@ class HostActivity : ComponentActivity() {
                             }
                         }
                         item {
-                            TextField(value = "Host", onValueChange = {})
+                            TextField(value = text, onValueChange = { text = it })
                         }
                         items(bigList) {
                             ListItem(headlineContent = { Text(it) })
